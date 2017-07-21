@@ -15,6 +15,8 @@ id: String;
 requestProcessing = false;
 allRating: Rating[];
 
+
+
    constructor(private ratingService: RatingService,private route: Router, private activatedRoute: ActivatedRoute ) {}
   
     ngOnInit() {
@@ -29,14 +31,24 @@ allRating: Rating[];
         
     }
 
-    onAddOrUpdateRate(){
+
+    updateRating(event){
+      let rat = event.target.id;
+      let tmpValue = this.rating[rat];
+      tmpValue = (parseInt(tmpValue )+ 1)
+      this.rating[rat] = tmpValue
+      this.onAddOrUpdateRate(this.rating);
+    }
+
+
+    onAddOrUpdateRate(rating:Rating){
      this.preProcessConfigurations();
-    //  new Date(timeStampInMs).toISOString() 
-     let rating = new Rating(null,"firstUPDATED",null,null,null,null,null,null)
+    //  let rating = new Rating(null,"firstUPDATED",null,null,null,null,null,null)
      this.ratingService.putRating(rating).subscribe(
         (successCode) => { this.statusCode = successCode; console.log(successCode)},
         (errorCode) => this.statusCode = errorCode);	  
     }
+
 
     
       
