@@ -4,11 +4,11 @@ import { RatingService } from '../service/rating.service';
 import { Rating } from "../model/rating";
 
 @Component({
-  selector: 'app-rating-page',
-  templateUrl: './rating-page.component.html',
-  styleUrls: ['./rating-page.component.scss']
+  selector: 'app-admin-rating-page',
+  templateUrl: './admin-rating-page.component.html',
+  styleUrls: ['./admin-rating-page.component.scss']
 })
-export class RatingPageComponent implements OnInit {
+export class AdminRatingPageComponent implements OnInit {
 statusCode: number;
 rating: Rating;
 id: String;
@@ -18,7 +18,7 @@ allRating: Rating[];
    constructor(private ratingService: RatingService,private route: Router, private activatedRoute: ActivatedRoute ) {}
   
     ngOnInit() {
-       this.readIdFromUrl()
+
     }    
    
 
@@ -38,7 +38,12 @@ allRating: Rating[];
         (errorCode) => this.statusCode = errorCode);	  
     }
 
-    
+    getAllRating(){
+       this.preProcessConfigurations();
+       this.ratingService.getAllRatings().subscribe(
+        (data) => this.allRating = data,
+        (errorCode) =>  this.statusCode = errorCode);  
+    }
       
     getRating(id){
       this.preProcessConfigurations();
@@ -49,6 +54,12 @@ allRating: Rating[];
         (errorCode) =>  this.statusCode = errorCode);          
     }
 
+    deletRaing(id){
+      this.preProcessConfigurations();
+      this.ratingService.deleteRatingById(id).subscribe(
+        (successCode) => { this.statusCode = successCode; this.getAllRating() },
+        (errorCode) =>  this.statusCode = errorCode );    
+    }
 
     preProcessConfigurations() {
       this.statusCode = null;
