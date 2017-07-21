@@ -3,11 +3,13 @@ import {NgModule, ApplicationRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {HttpModule, JsonpModule} from '@angular/http';
 import {FormsModule} from '@angular/forms';
-import {AppComponent} from './app.component';
 import {ServiceAppRoutingModule} from './app-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import 'hammerjs';
 
+
+
+import {AppComponent} from './app.component';
 
 import {
   MdButtonModule,

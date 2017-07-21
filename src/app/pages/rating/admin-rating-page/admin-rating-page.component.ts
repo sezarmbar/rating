@@ -1,7 +1,7 @@
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {OnInit, Component} from '@angular/core';
 import { RatingService } from '../service/rating.service';
-import { Rating } from "../model/rating";
+import { Rating } from "../";
 
 @Component({
   selector: 'app-admin-rating-page',
@@ -14,7 +14,7 @@ rating: Rating;
 id: String ="1" ;
 requestProcessing = false;
 allRating: Rating[];
-
+nameRating:string = "new One";
    constructor(private ratingService: RatingService,private route: Router, private activatedRoute: ActivatedRoute ) {}
   
     ngOnInit() {
@@ -29,7 +29,12 @@ allRating: Rating[];
         
     }
 
-     onAddOrUpdateRate(rating:Rating){
+    createNewRating(){
+      let ratein = new Rating(null,this.nameRating,"0","0","0","0","0",null)
+      this.createUpdaterating(ratein)
+    }
+
+     createUpdaterating(rating:Rating){
      this.preProcessConfigurations();
      this.ratingService.putRating(rating).subscribe(
         (successCode) => { this.statusCode = successCode; console.log(successCode)},

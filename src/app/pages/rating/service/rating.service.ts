@@ -6,13 +6,13 @@ import { Observable } from 'rxjs';
 import { Rating,Review } from "../";
 @Injectable()
 export class RatingService {
+	port = "8081"
+	rating = "http://localhost:"+this.port+"/api/rating";
+	allrating = "http://localhost:"+this.port+"/api/all-rating";
 
-	rating = "http://localhost:8080/api/rating";
-	allrating = "http://localhost:8080/api/all-rating";
+	allReview = "http://localhost:"+this.port+"/api/all-reviews";
 
-	allReview = "http://localhost:8080/api/all-reviews";
-
-	review = "http://localhost:8080/api/review";
+	review = "http://localhost:"+this.port+"/api/review";
 	constructor(private http:Http) { 
 	}
 // Review --------
