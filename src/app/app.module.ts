@@ -24,14 +24,15 @@ import {
 } from '@angular/material';
 
 // service
-import { RatingPageComponent, RatingService} from './pages/rating';
+import { RatingPageComponent, RatingService, DialogReviewEnter} from './pages/rating';
 import { AdminRatingPageComponent } from './pages/rating/admin-rating-page/admin-rating-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
      RatingPageComponent,
-     AdminRatingPageComponent
+     AdminRatingPageComponent,
+     DialogReviewEnter
   ],
   imports: [
     BrowserModule,
@@ -52,6 +53,7 @@ import { AdminRatingPageComponent } from './pages/rating/admin-rating-page/admin
     ServiceAppRoutingModule,
     JsonpModule
   ],
+entryComponents:[DialogReviewEnter],
   providers: [RatingService],
   bootstrap: [AppComponent]
 })

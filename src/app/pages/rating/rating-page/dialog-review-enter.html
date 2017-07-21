@@ -1,0 +1,4 @@
+ <md-input-container class="dialogStyle">
+      <textarea mdInput #reviewTxt name="reviewTxt" placeholder="Review"></textarea>
+    </md-input-container>
+    <button md-button  md-dialog-close (click)="dialogRef.close(reviewTxt.value)" >Schiken</button>

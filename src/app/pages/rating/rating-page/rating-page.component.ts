@@ -1,7 +1,8 @@
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {OnInit, Component} from '@angular/core';
 import { RatingService } from '../service/rating.service';
-import { Rating } from "../model/rating";
+import { Rating,Review } from "../";
+import {MdDialog, MdDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-rating-page',
@@ -15,20 +16,35 @@ id: String;
 requestProcessing = false;
 allRating: Rating[];
 
+isLoaded:boolean=false;
+
+title:String = null;
+enteredReview: string= null;
 
 
-   constructor(private ratingService: RatingService,private route: Router, private activatedRoute: ActivatedRoute ) {}
+review:Review ;
+
+   constructor(public dialog: MdDialog,private ratingService: RatingService, private activatedRoute: ActivatedRoute ) {}
   
     ngOnInit() {
        this.readIdFromUrl()
+
     }    
-   
+   openDialog() {
+    let dialogRef = this.dialog.open(DialogReviewEnter);
+    dialogRef.afterClosed().subscribe(result => {
+      this.enteredReview = result;
+      if(this.enteredReview != null && this.enteredReview != ""){
+        this.addReview(this.enteredReview)
+      }
+    });
+  }
+
 
     readIdFromUrl(){
       this.activatedRoute.params.subscribe(
-        (params: Params) => {this.id = params['id']; this.getRating(this.id)},
+        (params: Params) => {this.id = params['id']; this.getRating(this.id); this.isLoaded = true},
         (err)=>console.log(err))
-        
     }
 
 
@@ -43,7 +59,6 @@ allRating: Rating[];
 
     onAddOrUpdateRate(rating:Rating){
      this.preProcessConfigurations();
-    //  let rating = new Rating(null,"firstUPDATED",null,null,null,null,null,null)
      this.ratingService.putRating(rating).subscribe(
         (successCode) => { this.statusCode = successCode; console.log(successCode)},
         (errorCode) => this.statusCode = errorCode);	  
@@ -56,16 +71,41 @@ allRating: Rating[];
       this.preProcessConfigurations();
       this.ratingService.getRatingById(id).subscribe(
         (rating) => { this.requestProcessing = false;  this.rating = rating;
-        console.log(this.rating)
+        this.title = rating.nameOfRat 
         },
-        (errorCode) =>  this.statusCode = errorCode);          
+        (errorCode) =>  this.statusCode = errorCode);      
+            
     }
 
+
+    addReview(enterdReview){
+      let review = new Review(null,enterdReview,this.rating);
+      this.ratingService.putReview(review).subscribe(
+        (successCode) =>{ this.statusCode = successCode;this.enteredReview = null;},
+        (errorCode) => this.statusCode = errorCode);	  
+      
+    }
 
     preProcessConfigurations() {
       this.statusCode = null;
       this.requestProcessing = true;   
     }
+
+}
+
+
+
+@Component({
+  selector: 'dialog-review-enter',
+  templateUrl: 'dialog-review-enter.html',
+  styleUrls: ['./dialog-review-enter.scss']
+  
+})
+export class DialogReviewEnter {
+  public enteredReview: string;
+  constructor(public dialogRef: MdDialogRef<DialogReviewEnter>) {
+    
+  }
 
 
 }

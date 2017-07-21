@@ -3,17 +3,40 @@ import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angul
 import { Observable } from 'rxjs';
 
 
-import { Rating } from "../model/rating";
+import { Rating,Review } from "../";
 @Injectable()
 export class RatingService {
 
 	rating = "http://localhost:8080/api/rating";
 	allrating = "http://localhost:8080/api/all-rating";
 
+	allReview = "http://localhost:8080/api/all-reviews";
+
+	review = "http://localhost:8080/api/review";
 	constructor(private http:Http) { 
 	}
+// Review --------
 
-	
+
+	getAllReviews(rating:Rating): Observable<Review[]> {
+		let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
+		let options = new RequestOptions({ headers: cpHeaders });
+
+        return this.http.post(this.allReview,rating,options)
+		   		.map(this.extractData)
+		        .catch(this.handleError);
+
+    }
+
+	putReview(review: Review):Observable<number> {
+		let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
+		let options = new RequestOptions({ headers: cpHeaders });
+		return this.http.post(this.review, review, options)
+               .map(success => success.status)
+               .catch(this.handleError);
+	}
+
+
 // Rating ------------
 
 	getAllRatings(): Observable<Rating[]> {

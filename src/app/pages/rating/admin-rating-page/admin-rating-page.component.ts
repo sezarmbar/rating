@@ -11,14 +11,14 @@ import { Rating } from "../model/rating";
 export class AdminRatingPageComponent implements OnInit {
 statusCode: number;
 rating: Rating;
-id: String;
+id: String ="1" ;
 requestProcessing = false;
 allRating: Rating[];
 
    constructor(private ratingService: RatingService,private route: Router, private activatedRoute: ActivatedRoute ) {}
   
     ngOnInit() {
-
+      this.getRating(this.id)
     }    
    
 
@@ -29,10 +29,8 @@ allRating: Rating[];
         
     }
 
-    onAddOrUpdateRate(){
+     onAddOrUpdateRate(rating:Rating){
      this.preProcessConfigurations();
-    //  new Date(timeStampInMs).toISOString() 
-     let rating = new Rating(null,"firstUPDATED",null,null,null,null,null,null)
      this.ratingService.putRating(rating).subscribe(
         (successCode) => { this.statusCode = successCode; console.log(successCode)},
         (errorCode) => this.statusCode = errorCode);	  
@@ -59,6 +57,12 @@ allRating: Rating[];
       this.ratingService.deleteRatingById(id).subscribe(
         (successCode) => { this.statusCode = successCode; this.getAllRating() },
         (errorCode) =>  this.statusCode = errorCode );    
+    }
+
+    getAllReviews(){
+      this.ratingService.getAllReviews(this.rating).subscribe(
+        reviews=> console.log(reviews),
+        (errorCode) =>  this.statusCode = errorCode)
     }
 
     preProcessConfigurations() {

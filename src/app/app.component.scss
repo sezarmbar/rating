@@ -14,98 +14,54 @@
   }
 }
 
-md-sidenav-container.m2app-dark {
-      background-color: #585858;
-}
-.app-main-content-div{
-  height: 60px;
-}
-.app-main-content {
-  margin-top:60px;
-  padding: 0px;
-  
-}
 
-.app-content md-card {
-  margin: 10px;
-}
-.mat-toolbar {
-      min-height: 60px !important;
-}
+body {
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
 
-  .app-layout{
-
-     height: 100vh;
+  // Helps fonts on OSX looks more consistent with other systems
+  // Isn't currently in button styles due to performance concerns
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-.app-sidenav {
-  padding: 0px;
-  min-width: 200px !important;
+  .mat-sidenav {
+    min-width: 15vw;
+
+    .mat-button {
+      width: 100%;
+      position: relative;
+      bottom: 0;
+      margin: 24px 0;
+    }
+  }
+
+  .demo-content {
+    padding: 32px;
+    box-sizing: border-box;
+  }
+
+  .mat-toolbar {
+    .mat-icon {
+      cursor: pointer;
+    }
+
+    .demo-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+  }
+
+  h1 {
+    font-size: 20px;
+  }
 }
 
-.app-content md-checkbox {
-  margin: 10px;
-}
-
-.app-toolbar-filler {
-  flex: 1 1 auto;
-}
-
-.app-toolbar-menu {
-  padding: 0 14px 0 14px;
-  color: white;
-}
-
-.app-icon-button {
-  box-shadow: none;
-  user-select: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  filter: none;
-  font-weight: normal;
-  height: auto;
-  line-height: inherit;
-  margin: 0;
-  min-width: 0;
-  padding: 0;
-  text-align: left;
-  text-decoration: none;
-}
-.app-action {
-  display: inline-block;
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-}
-
-
-// navbar
-
-.ulmenu {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    height: 60px;
-    position: fixed;
-    z-index: 999;
-    width: 100%;
-}
-
-
-li {
-    float: left;
-}
-
-li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 22px 16px;
-    text-decoration: none;
-}
-.navbar-style{
-  position: absolute;
-  right: 5px;
+// stretch to screen size in fullscreen mode
+.demo-content {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
 }
